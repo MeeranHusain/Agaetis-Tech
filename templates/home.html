@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Employee List</h1>
+            <p>Manage and view all employees</p>
+        </div>
+
+        <div class="add-employee-container">
+            <a href="{% url 'employee_add' %}" class="add-employee-btn">
+                <i class="fa fa-plus"></i>
+                Add Employee
+            </a>
+        </div>
+
+        <div class="table-container">
+            <table class="employee-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Designation</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for emp in employees %}
+                    <tr>
+                        <td>{{ emp.id }}</td>
+                        <td class="employee-name">{{ emp.fullname }}</td>
+                        <td>{{ emp.email }}</td>
+                        <td>{{ emp.designation }}</td>
+
+                        <td>
+                            {% if emp.department %}
+                                {{ emp.department.dept_name }}
+                            {% else %}
+                                <span class="muted">
+                                    No Department
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <div class="action-buttons">
+
+                                <!-- View Employee -->
+                                <a href="{% url 'employee_detail' id=emp.id %}" title="View Employee">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+
+                                <!-- Edit Employee -->
+                                <a href="{% url 'employee_edit' id=emp.id %}" title="Edit Employee">
+                                    <i class="fa fa-edit" style="color:green;"></i>
+                                </a>
+
+                                <!-- Delete Employee -->
+                                <a href="{% url 'employee_delete' id=emp.id %}" title="Delete Employee">
+                                    <i class="fa fa-trash" style="color:red;"></i>
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="7" class="no-data">
+                            No employees found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

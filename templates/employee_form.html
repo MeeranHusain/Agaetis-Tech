@@ -1,0 +1,150 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ page_title }}</title>
+
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="form-container">
+
+        <div class="form-header">
+          <div>
+            <h1>{{ page_title }}</h1>
+            <p>
+                {% if employee %}
+                    Update employee information
+                {% else %}
+                    Create a new employee record
+                {% endif %}
+            </p>
+          </div>
+            <div class="header-icon">
+              {% if employee %}✎{% else %}+{% endif %}
+            </div>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">  
+          {% csrf_token %}
+
+          <div class="form-section">
+            <div class="section-header">
+              <div class="section-icon">👤</div>
+
+              <div>
+                <h2>Personal Information</h2>
+                <p>Enter basic employee information</p>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="{{ form.fullname.id_for_label }}">
+                  Full Name
+                  <span>*</span>
+                </label>
+
+                {{ form.fullname }} {% if form.fullname.errors %}
+                <div class="field-error">{{ form.fullname.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- Email -->
+              <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">
+                  Email Address
+                  <span>*</span>
+                </label>
+
+                {{ form.email }} {% if form.email.errors %}
+                <div class="field-error">{{ form.email.errors }}</div>
+                {% endif %}
+              </div>
+
+              <!-- Designation -->
+              <div class="form-group">
+                <label for="{{ form.designation.id_for_label }}">
+                  Designation
+                  <span>*</span>
+                </label>
+
+                {{ form.designation }} {% if form.designation.errors %}
+                <div class="field-error">{{ form.designation.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-section">
+            <div class="section-header">
+              <div class="section-icon">💼</div>
+
+              <div>
+                <h2>Employment Information</h2>
+                <p>Enter employee's job and company details</p>
+              </div>
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="{{ form.created_at.id_for_label }}">
+                  Created Date
+                  <span>*</span>
+                </label>
+
+                {{ form.created_at }} {% if form.created_at.errors %}
+                <div class="field-error">{{ form.created_at.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="{{ form.department.id_for_label }}">
+                  Department
+                  <span>*</span>
+                </label>
+
+                {{ form.department }} {% if form.department.errors %}
+                <div class="field-error">{{ form.department.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          {% if form.non_field_errors %}
+
+          <div class="form-error-box">
+            <strong>Please correct the following errors:</strong>
+
+            {{ form.non_field_errors }}
+          </div>
+
+          {% endif %}
+
+          <div class="form-actions">
+            <a href="/" class="cancel-btn"> Cancel </a> 
+
+            <button type="submit" class="submit-btn">
+              <span>{% if employee %}✓{% else %}+{% endif %}</span>
+              {{ button_text }}
+            </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+</body>
+</html>

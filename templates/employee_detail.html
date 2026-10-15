@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <div class="employee-card">
+        
+        <div class="card-header">
+            <h1>{{ employee.fullname }}</h1>
+            <p>Employee ID: #{{ employee.id }}</p>
+        </div>
+
+
+        <div class="details">
+            <div class="detail-row">
+                <span class="label">Full Name</span>
+                <span class="value">
+                    {{ employee.fullname }}
+                </span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Email</span>
+                <span class="value">
+                    {{ employee.email }}
+                </span>
+            </div>
+
+            <a href="/" class="back-btn">
+                ← Back to Employees
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
